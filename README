@@ -1,0 +1,71 @@
+## Package Introduction
+#Package Name: jetracer_webots_ros2
+#Authors: Lorenzo Pichierri, Navid Hassanabady
+#Date: 17 October 2023
+
+The "webots_ros2_jetracer" package is a collection of ROS2 packages designed for SLAM (Simultaneous Localization and Mapping), simulation, navigation, and control of the JetRacer Pro AI Kit. This package includes a set of ROS2 nodes, launch files, and configuration files that enable autonomous navigation, mapping, and localization for the JetRacer Pro model.
+
+## System Requirments
+1- Ubuntu Ubuntu 20.04.6 LTS, 64-bit
+2- ROS2 Foxy
+3- Webots R2022a 
+4- Intel core i7 11th generation or higher
+5- 16 GB RAM or higher
+
+
+**Remark:** I am recommending to tune the step-time parameters for smaller values (for Webots, Cartographer, and Navigation) in order to achieve the most perfect results, especially when the user has powerful hardware.
+
+## Configurations
+### Cartographer Config:
+- Cartographer configuration file location: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/config/my_cartographer.lua`
+
+### Nav2 Config:
+- Nav2 configuration file location: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/config/jetracer_nav.yaml`
+
+### RViz2 Config:
+- RViz2 configuration file location: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/rviz/my_cartographer.rviz`
+
+### Webots Models:
+The package includes Webots models for different environments. Here are the available models:
+1. Mugello Circuit Scaled Model with one JetRacer (agent_0): `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/world/jetracer_x1.wbt`
+2. Rectangle Arena with two JetRacers (agent_0 & agent_1): `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/world/jetracer_x2.wbt`
+
+### CAD Model (.stl files)
+CAD model files should be placed in the following directory: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/world/meshes`
+
+### URDF
+The URDF (Unified Robot Description Format) is used to define the robot's joint, links, and reference frames. It is recommended to use different .urdf codes for different agents, even if they are identical. This approach ensures better interaction with Webots' embedded plugins and eliminates the need for user-defined plugins. 
+URDF location: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/resources/jetracer_X.urdf`
+
+## Customized Nodes
+The package includes some custom ROS2 nodes to control various aspects of the JetRacer Pro AI Kit. Here are the nodes available in the package:
+1. Ackermann PID Controller: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/choirjet_examples/ackermann_driver.py`
+2. Goal Position Generator: This node subscribes to the current position of the car and provides the `/goal_pose` topic for Nav2. Location: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/choirjet_examples/goal_pose_gen.py`
+3. Path Publisher Node: This node provides a static map of the Mugello Circuit. Location: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/choirjet_examples/path_publisher_node.py`
+4. Lidar Converter Node: Converts the `/lidar` topic to `/scan`. Location: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/choirjet_examples/lidar_converter_node.py`
+5. ODOM Topic Publisher: This node receives odom frames and publishes the `/odom` topic. Location: `~/Jetracer_webots_ros2/ChoirJet/src/choirjet_examples/choirjet_examples/odom_publisher_node.py`
+
+## Installation
+
+### Dependencies
+Before installing the package, ensure you have the following dependencies installed on your system:
+```bash
+sudo apt install ros-foxy-vision-msgs
+sudo apt install ros-foxy-diagnostic-updater
+sudo apt install ros-foxy-navigation2
+sudo apt install ros-foxy-nav2-bringup
+sudo apt install ros-foxy-turtlebot3-gazebo
+sudo apt install ros-foxy-cartographer
+sudo apt install ros-foxy-turtlebot3*
+
+# Source the setup files ROS 2 Foxy
+source /opt/ros/foxy/setup.bash
+
+# Build the package
+colcon build --symlink-install 
+
+# Source the workspace
+source install/setup.bash
+
+# Launch 
+ros2 launch choirjet_examples jetracer_carto_nav_ctrl.launch.py

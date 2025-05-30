@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<robot name="Jetracer" xmlns:xacro="http://ros.org/wiki/xacro">
+  <webots>
+      <device reference="camera" type="Camera"></device>    
+      <plugin type="choirjet.webots_plugin.JetracerCrtl" />       
+      <plugin type="webots_ros2_driver::Ros2IMU">
+            <enabled>true</enabled>
+            <updateRate>20</updateRate>
+            <topicName>/imu_agent_1</topicName>
+            <alwaysOn>true</alwaysOn>
+            <frameName>imu_link</frameName>
+            <inertialUnitName>inertial_unit</inertialUnitName>
+            <gyroName>gyro</gyroName>
+            <accelerometerName>accelerometer</accelerometerName>            
+      </plugin>     
+  </webots> 
+      <link name="map">
+      </link>
+      <link name="odom">
+      </link>
+      <link name="base_link">
+      </link>
+      <link name="ack_link">
+      </link>      
+      <joint name="base_ac_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="ack_link"/>
+        <origin xyz="0.19 0 0.114" rpy="0 0 0"/>
+      </joint>        
+      <joint name="m2o" type="continuous">
+        <parent link="map"/>
+        <child link="odom"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </joint>      
+      <joint name="o2b" type="continuous">
+        <parent link="odom"/>
+        <child link="base_link"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </joint>
+      <link name="lidar">
+        <visual>
+          <origin xyz="0.014 0 -0.014" rpy="1.5708 0.00001 -1.5708"/>
+          <geometry>
+            <box size="0.07 0.01 0.1"/>
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0.014 0 -0.014" rpy="1.5708 0.00001 -1.5708"/>
+          <geometry>
+            <box size="0.07 0.01 0.1"/>
+          </geometry>
+        </collision>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <cylinder radius="0.032" length="0.021"/>
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <cylinder radius="0.032" length="0.021"/>
+          </geometry>
+        </collision>
+      </link>
+      <joint name="base_link_lidar_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="lidar"/>
+        <origin xyz="0.19 0 0.114" rpy="0 0 3.14159"/>
+      </joint>
+      <link name="scan">
+      </link>
+      <joint name="base_link_scan_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="scan"/>
+        <origin xyz="0.19 0 0.114" rpy="0 0 0"/>
+      </joint>
+      <link name="camera">
+      </link>
+      <joint name="base_link_camera_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="camera"/>
+        <origin xyz="0.211507 0 0.067799" rpy="-1.570796 0.130898 -1.570796"/>
+      </joint>  
+      <link name="imu_link">
+      </link>
+      <joint name="base_link_imu_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+        <origin xyz="0.19 0 0.114" rpy="0 0 3.14159"/>
+      </joint>   
+      <link name="base_footprint">
+      </link>  
+      <joint name="base_link_base_footprint_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_footprint"/>
+        <origin xyz="0.085 0 0" rpy="0 0 0"/>
+      </joint> 
+</robot>

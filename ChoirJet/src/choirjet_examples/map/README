@@ -1,0 +1,2 @@
+# This is the command to save a resulting map while the package is runing 
+ros2 run nav2_map_server map_saver_cli -f ~/ChoirJet/src/choirjet_examples/map/map
