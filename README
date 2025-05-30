@@ -1,6 +1,6 @@
 ## Package Introduction
 #Package Name: jetracer_webots_ros2
-#Authors: Lorenzo Pichierri, Navid Hassanabady
+#Authors: Navid Hassanabady, Lorenzo Pichierri
 #Date: 17 October 2023
 
 The "webots_ros2_jetracer" package is a collection of ROS2 packages designed for SLAM (Simultaneous Localization and Mapping), simulation, navigation, and control of the JetRacer Pro AI Kit. This package includes a set of ROS2 nodes, launch files, and configuration files that enable autonomous navigation, mapping, and localization for the JetRacer Pro model.
