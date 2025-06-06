@@ -19,3 +19,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Acknowledgment:
+This ROS 2 package was developed as part of the Master’s thesis:
+"CAD Modeling of a JetRacer Minicar and Webots Simulation of SLAM Algorithms"
+at the University of Bologna under the supervision of Prof. Giuseppe Notarstefano.
